@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="weather.controller.WeatherAppController">
+   <children>
+      <BorderPane>
+         <center>
+            <GridPane id="ratesGrid">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50" />
+                    <ColumnConstraints percentWidth="20" />
+                    <ColumnConstraints percentWidth="30" />
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints percentHeight="50" />
+                    <RowConstraints percentHeight="30" />
+                </rowConstraints>
+               <children>
+                  <Label fx:id="pressureLabel" text="-" />
+                  <Label fx:id="temperatureLabel" text="-" textAlignment="CENTER" GridPane.columnIndex="1" />
+                  <Label fx:id="humidityLabel" text="-" GridPane.columnIndex="2" />
+                  <Label fx:id="windLabel" text="-" GridPane.rowIndex="1" />
+                  <Label fx:id="airPolutionLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="cloudsLabel" text="-" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+               </children>
+
+
+            </GridPane>
+         </center>
+         <bottom>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#buuu" text="refresh" />
+                  <Button id="changeButton" mnemonicParsing="false" onAction="#refreshButtonClicked" text="change" />
+               </children>
+            </HBox>
+         </bottom>
+         <top>
+            <Label fx:id="updatesTime" text="Label" BorderPane.alignment="CENTER" />
+         </top>
+      </BorderPane>
+   </children>
+</StackPane>

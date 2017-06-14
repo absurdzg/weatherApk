@@ -1,0 +1,74 @@
+#main2 {
+    -fx-background-color: skyblue, derive(skyblue, 25%);
+    -fx-background-insets: -20, -10;
+    -fx-background-image: url("/image/wallpaper2.jpg");
+    -fx-background-position: left top, center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover, auto;
+}
+
+#iconWind {
+    -fx-icon-size: 30px;
+    -fx-icon-color: white;
+}
+
+#main {
+    -fx-background-color: black;
+}
+
+.info-value-style {
+    -fx-font-size: 15.0;
+    -fx-font-weight: bolder;
+    -fx-text-fill: antiquewhite;
+    -fx-fill: antiquewhite;
+    -fx-padding: 1.0;
+}
+
+.weather-value {
+    -fx-font-size: 25.0;
+    -fx-font-weight: bolder;
+    -fx-text-fill: white;
+    -fx-fill: WHITE;
+    -fx-padding: 1.0;
+}
+
+.title-style {
+    -fx-font-size: 30.0;
+    -fx-font-weight: bolder;
+    -fx-text-fill: white;
+}
+
+#statusContainer {
+
+    -fx-background-color: black;
+}
+
+.icon-container {
+    -fx-pref-width: 70.0px;
+    -fx-pref-height: 70.0px;
+    -fx-background-color: whitesmoke;
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
+}
+
+.value-container {
+    -fx-pref-width: 70.0px;
+    -fx-pref-height: 70.0px;
+    -fx-background-color: whitesmoke;
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
+}
+
+.icon-style {
+    -fx-icon-size: 30px;
+    -fx-icon-color: black;
+}
+
+.icon-status-style {
+    -fx-icon-size: 25px;
+    -fx-icon-color: black;
+}
+
+#statusContainer {
+    -fx-background-color: whitesmoke;
+}

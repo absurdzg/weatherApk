@@ -15,7 +15,7 @@ public class WeatherDataOpenWeather extends WeatherData
 
     private static final String URL_OPEN_WEATHER = "http://api.openweathermap.org/data/2.5/weather?q=Warsaw&APPID=52ad7ea93477d9d80c6e2ac9749af2ef";
     private static final double TRIPLE_POINT= 273.16;
-
+    private static final int HALF_CIRCLE = 180;
     @Override
     public void refreshData() throws IOException
     {
@@ -36,8 +36,19 @@ public class WeatherDataOpenWeather extends WeatherData
 
             JsonObject windWeather =   (JsonObject) weatherJsonData.get("wind");
 
-            windData=new WindData(windWeather.get("speed").getAsFloat(),windWeather.get("deg").getAsInt());
+        float windSpeed = windWeather.get("speed").getAsFloat();
+        float windDeg = windWeather.get("deg").getAsInt();
 
+        if (windDeg > HALF_CIRCLE) //zamieniam kierunek z na do
+        {
+            windDeg -= HALF_CIRCLE;
+        }
+        else
+        {
+            windDeg += HALF_CIRCLE;
+        }
+
+        windData.setWindData(windSpeed, (int) windDeg);
 
             JsonObject cloudsWeather =   (JsonObject) weatherJsonData.get("clouds");
 
@@ -52,8 +63,12 @@ public class WeatherDataOpenWeather extends WeatherData
     }
 
     @Override
-    public String showCloudsData()
+    public String cloud()
     {
-        return clouds+"%";
+        if (super.empty())
+        {
+            return "N/A";
+        }
+        return Float.toString(clouds);
     }
 }

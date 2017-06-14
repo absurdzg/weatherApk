@@ -14,30 +14,57 @@ public abstract class WeatherData extends Data
     public WeatherData()
     {
         super();
+        windData = new WindData();
     }
 
-    public String showPressureData()
+    public String pressure()
     {
-        return pressure+" Hpa";
+        if (super.empty())
+        {
+            return "N/A";
+        }
+        else
+        {
+            return Float.toString(pressure);
+        }
+
     }
 
-    public String showTemperatureData()
+    public String temperature()
     {
-        final String DEGREE  = "\u00b0";
-        return temperature+DEGREE+"C";
+        if (super.empty())
+        {
+            return "N/A";
+        }
+        else
+        {
+            return Float.toString(temperature);
+        }
     }
 
-    public String showhumidityData()
+    public WindData windData()
     {
-        return humidity+"%";
+        return windData;
     }
 
-    public String showWindData()
+    public String humidity()
     {
-        return windData.toString();
+        if (super.empty())
+        {
+            return "N/A";
+        }
+        else
+        {
+            return Float.toString(humidity);
+        }
     }
 
-    public abstract String showCloudsData();
+    public abstract String cloud();
 
-
+    @Override
+    public void empty(boolean empty)
+    {
+        super.empty(empty);
+        windData.empty(empty);
+    }
 }

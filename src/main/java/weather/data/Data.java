@@ -46,4 +46,14 @@ public abstract class Data
     {
         this.empty = true;
     }
+
+    public boolean empty()
+    {
+        return empty;
+    }
+
+    public void empty(boolean empty)
+    {
+        this.empty = empty;
+    }
 }

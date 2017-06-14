@@ -18,6 +18,7 @@ public class AirPollutionData extends Data
     private float PM2_5;
 
 
+
     public void  refreshData() throws IOException
     {
             String airPoluteString = super.getStringData(URL_AIR_POLUTION);
@@ -43,20 +44,40 @@ public class AirPollutionData extends Data
 
     }
 
-    public String showData()
+    public String PM10()
     {
-        if(empty)
+        if (super.empty())
         {
-            return "-";
+            return "N/A";
         }
-        else
+        return Float.toString(round(PM10, 2)) + " µ/m3";
+    }
+
+    public String PM2_5()
+    {
+        if (super.empty())
         {
-            return "PM2.5:"+PM2_5+" PM10:"+PM10;
+            return "N/A";
         }
+        return Float.toString(round(PM2_5, 2)) + " µ/m3";
     }
 
     public AirPollutionData()
     {
         super();
     }
+
+    private static float round(float value, int places)
+    {
+        if (places < 0)
+        {
+            throw new IllegalArgumentException();
+        }
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (float) tmp / factor;
+    }
+
 }

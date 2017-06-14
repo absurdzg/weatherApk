@@ -1,52 +1,211 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-
-<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="weather.controller.WeatherAppController">
+<?import org.kordamp.ikonli.javafx.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" id="main" stylesheets="@../css/weather.css"
+           xmlns="http://javafx.com/javafx/8.0.112" fx:controller="weather.controller.WeatherAppController">
    <children>
-      <BorderPane>
-         <center>
-            <GridPane id="ratesGrid">
-                <columnConstraints>
-                    <ColumnConstraints percentWidth="50" />
-                    <ColumnConstraints percentWidth="20" />
-                    <ColumnConstraints percentWidth="30" />
+       <BorderPane>
+           <top>
+               <VBox alignment="CENTER">
+                   <Label text="Warszawa" styleClass="title-style" alignment="CENTER"/>
+                   <HBox alignment="CENTER">
+                       <Label text="Zaktualizowano o godzinie: " styleClass="info-value-style"/>
+                       <Label fx:id="updatesTimeAndSource" styleClass="info-value-style" alignment="CENTER"/>
+                   </HBox>
+
+               </VBox>
+           </top>
+
+           <center>
+               <VBox alignment="CENTER">
+                   <GridPane hgap="10" vgap="10">
+                       <padding>
+                           <Insets top="10" right="25" bottom="25" left="25"/>
+                       </padding>
+
+                       <columnConstraints>
+                           <ColumnConstraints halignment="CENTER" percentWidth="50"/>
+                           <ColumnConstraints halignment="CENTER" percentWidth="50"/>
                 </columnConstraints>
 
                 <rowConstraints>
-                    <RowConstraints percentHeight="50" />
-                    <RowConstraints percentHeight="30" />
+                    <RowConstraints valignment="CENTER" percentHeight="33"/>
+                    <RowConstraints valignment="CENTER" percentHeight="33"/>
+                    <RowConstraints valignment="CENTER" percentHeight="33"/>
                 </rowConstraints>
-               <children>
-                  <Label fx:id="pressureLabel" text="-" />
-                  <Label fx:id="temperatureLabel" text="-" textAlignment="CENTER" GridPane.columnIndex="1" />
-                  <Label fx:id="humidityLabel" text="-" GridPane.columnIndex="2" />
-                  <Label fx:id="windLabel" text="-" GridPane.rowIndex="1" />
-                  <Label fx:id="airPolutionLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="cloudsLabel" text="-" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-               </children>
+
+                       <children>
+
+                           <GridPane alignment="CENTER" GridPane.columnIndex="0"
+                                     GridPane.rowIndex="0">
+                               <columnConstraints>
+                                   <ColumnConstraints halignment="CENTER" percentWidth="30"/>
+                                   <ColumnConstraints halignment="CENTER" percentWidth="70"/>
+                               </columnConstraints>
+                               <children>
+                                   <StackPane styleClass="icon-container">
+                                       <FontIcon iconLiteral="wi-thermometer" styleClass="icon-style"
+                                                 BorderPane.alignment="CENTER"/>
+                                   </StackPane>
+                                   <HBox alignment="CENTER" GridPane.columnIndex="1">
+                                       <Label text="temperatura: " styleClass="info-value-style"/>
+                                       <Label fx:id="temperatureLabel" text="N/A" styleClass="weather-value"
+                                              textAlignment="CENTER"/>
+                                       <Label text=" °C" styleClass="info-value-style"/>
+                                   </HBox>
+                               </children>
+                           </GridPane>
+
+                           <GridPane GridPane.columnIndex="1" GridPane.rowIndex="0" alignment="CENTER">
+                               <columnConstraints>
+                                   <ColumnConstraints halignment="CENTER" percentWidth="30"/>
+                                   <ColumnConstraints halignment="CENTER" percentWidth="70"/>
+                               </columnConstraints>
+                               <children>
+                                   <StackPane styleClass="icon-container">
+                                       <FontIcon iconLiteral="wi-barometer" styleClass="icon-style"
+                                                 textAlignment="CENTER"/>
+                                   </StackPane>
+                                   <HBox alignment="CENTER" GridPane.columnIndex="1">
+                                       <Label text="cisnienie: " styleClass="info-value-style"/>
+                                       <Label fx:id="pressureLabel" text="N/A" styleClass="weather-value"
+                                              textAlignment="CENTER"/>
+                                       <Label text=" HPa" styleClass="info-value-style"/>
+                                   </HBox>
+                               </children>
+                           </GridPane>
+
+                           <GridPane GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER">
+                               <columnConstraints>
+                                   <ColumnConstraints halignment="CENTER" percentWidth="30"/>
+                                   <ColumnConstraints halignment="CENTER" percentWidth="70"/>
+                               </columnConstraints>
+                               <children>
+                                   <StackPane styleClass="icon-container">
+                                       <FontIcon iconLiteral="wi-strong-wind" styleClass="icon-style"
+                                                 textAlignment="CENTER"/>
+                                   </StackPane>
+                                   <VBox alignment="CENTER" GridPane.columnIndex="1">
+                                       <HBox alignment="CENTER" GridPane.columnIndex="1">
+                                           <Label text="kierunek: " styleClass="info-value-style"/>
+                                           <FontIcon id="iconWind" fx:id="iconWind" iconLiteral="wi-wind-direction"/>
+                                       </HBox>
+                                       <HBox alignment="CENTER" GridPane.columnIndex="1">
+                                           <Label text="predkość wiatru: " styleClass="info-value-style"/>
+                                           <Label fx:id="windLabel" text="N/A" styleClass="weather-value"
+                                                  textAlignment="CENTER"/>
+                                           <Label text=" m/s" styleClass="info-value-style"/>
+                                       </HBox>
+                                   </VBox>
+
+                               </children>
+                           </GridPane>
+
+                           <GridPane alignment="CENTER" GridPane.columnIndex="0"
+                                     GridPane.rowIndex="2">
+                               <columnConstraints>
+                                   <ColumnConstraints halignment="CENTER" percentWidth="30"/>
+                                   <ColumnConstraints halignment="CENTER" percentWidth="70"/>
+                               </columnConstraints>
+                               <children>
+                                   <StackPane styleClass="icon-container">
+                                       <FontIcon iconLiteral="wi-cloudy" styleClass="icon-style"
+                                                 textAlignment="CENTER"/>
+                                   </StackPane>
+                                   <HBox alignment="CENTER" GridPane.columnIndex="1">
+                                       <Label text="zachmurzenie: " styleClass="info-value-style"/>
+                                       <Label fx:id="cloudsLabel" text="N/A" styleClass="weather-value"
+                                              textAlignment="CENTER"/>
+                                       <Label text=" %" styleClass="info-value-style"/>
+                                   </HBox>
+                               </children>
+                           </GridPane>
+
+                           <GridPane alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                               <columnConstraints>
+                                   <ColumnConstraints halignment="CENTER" percentWidth="30"/>
+                                   <ColumnConstraints halignment="CENTER" percentWidth="70"/>
+                               </columnConstraints>
+                               <children>
+                                   <StackPane styleClass="icon-container">
+                                       <FontIcon iconLiteral="wi-raindrop" styleClass="icon-style"
+                                                 textAlignment="CENTER"/>
+                                   </StackPane>
+                                   <HBox alignment="CENTER" GridPane.columnIndex="1">
+                                       <Label text="wilgotność: " styleClass="info-value-style"/>
+                                       <Label fx:id="humidityLabel" text="N/A" styleClass="weather-value"
+                                              textAlignment="CENTER"/>
+                                       <Label text=" %" styleClass="info-value-style"/>
+                                   </HBox>
+                               </children>
+                           </GridPane>
 
 
-            </GridPane>
-         </center>
-         <bottom>
-            <HBox BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#buuu" text="refresh" />
-                  <Button id="changeButton" mnemonicParsing="false" onAction="#refreshButtonClicked" text="change" />
-               </children>
-            </HBox>
+                           <GridPane BorderPane.alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                     alignment="CENTER">
+                               <columnConstraints>
+                                   <ColumnConstraints halignment="CENTER" percentWidth="30"/>
+                                   <ColumnConstraints halignment="CENTER" percentWidth="70"/>
+                               </columnConstraints>
+                               <children>
+                                   <StackPane styleClass="icon-container">
+                                       <FontIcon iconLiteral="fa-trash" styleClass="icon-style" textAlignment="CENTER"/>
+                                   </StackPane>
+                                   <VBox alignment="CENTER" GridPane.columnIndex="1">
+                                       <HBox alignment="CENTER" GridPane.columnIndex="1">
+                                           <Label text="PM 2.5: " styleClass="info-value-style"/>
+                                           <Label fx:id="airPolutionLabelPM25" text="N/A" styleClass="weather-value"
+                                                  textAlignment="CENTER"/>
+                                       </HBox>
+
+                                       <HBox alignment="CENTER" GridPane.columnIndex="1">
+                                           <Label text="PM 10: " styleClass="info-value-style"/>
+                                           <Label fx:id="airPolutionLabelPM10" text="N/A" styleClass="weather-value"
+                                                  textAlignment="CENTER"/>
+                                       </HBox>
+
+                                   </VBox>
+                               </children>
+                           </GridPane>
+
+                       </children>
+
+
+                   </GridPane>
+
+                   <HBox alignment="CENTER">
+                       <padding>
+                           <Insets bottom="20" right="150" left="150"/>
+                       </padding>
+                       <RadioButton text="OpenWeather" styleClass="info-value-style" selected="true"
+                                    fx:id="openWeatherSource" onAction="#changeClicked">
+                           <toggleGroup>
+                               <ToggleGroup fx:id="source"/>
+                           </toggleGroup>
+                       </RadioButton>
+                       <Region HBox.hgrow="ALWAYS"/>
+                       <RadioButton mnemonicParsing="false" text="MeteoWaw" fx:id="meteoWawSource"
+                                    onAction="#changeClicked" styleClass="info-value-style" toggleGroup="$source"/>
+                   </HBox>
+               </VBox>
+           </center>
+           <bottom>
+               <HBox id="statusContainer">
+                   <JFXButton fx:id="refreshButton" onAction="#refreshButtonClicked">
+                       <graphic>
+                           <FontIcon iconLiteral="fa-refresh" styleClass="icon-status-style"/>
+                       </graphic>
+                   </JFXButton>
+                   <Region HBox.hgrow="ALWAYS"/>
+                   <FontIcon fx:id="errorIcon" styleClass="icon-status-style" iconLiteral="fa-exclamation-triangle"/>
+
+               </HBox>
          </bottom>
-         <top>
-            <Label fx:id="updatesTime" text="Label" BorderPane.alignment="CENTER" />
-         </top>
-      </BorderPane>
+
+       </BorderPane>
    </children>
 </StackPane>

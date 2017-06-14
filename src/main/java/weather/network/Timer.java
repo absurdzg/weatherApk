@@ -32,10 +32,4 @@ public class Timer
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
-
-    public void stopTimer()
-    {
-        timeline.stop();
-    }
-
 }

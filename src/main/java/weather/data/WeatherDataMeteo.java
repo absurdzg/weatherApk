@@ -40,7 +40,7 @@ public class WeatherDataMeteo extends WeatherData
         Element content = doc.getElementById(WIND_DEG_ID);
         int windDeg = windDirectionToDeg(content.text());
 
-        windData=new WindData(windSpeed,windDeg);
+        windData.setWindData(windSpeed, windDeg);
 
     }
 
@@ -91,8 +91,10 @@ public class WeatherDataMeteo extends WeatherData
     }
 
     @Override
-    public String showCloudsData()
+    public String cloud()
     {
-        return "-";
+        return "N/A";
     }
+
+
 }

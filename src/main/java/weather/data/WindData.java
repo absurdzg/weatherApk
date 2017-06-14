@@ -1,21 +1,36 @@
 package weather.data;
 
 
-public class WindData
+import java.io.IOException;
+
+public class WindData extends Data
 {
     private float speed;
     private int deg;
 
-    public WindData(float speed, int deg)
+    public float getSpeed()
+    {
+        return speed;
+    }
+
+    public int getDeg()
+    {
+        return deg;
+    }
+
+    @Override
+    public void refreshData() throws IOException
+    {
+    }
+
+    public void setWindData(float speed, int deg)
     {
         this.speed = speed;
         this.deg = deg;
     }
 
-    @Override
-    public String toString()
+    public WindData()
     {
-        final String DEGREE  = "\u00b0";
-        return speed + "m/s " + deg +DEGREE;
+        super();
     }
 }

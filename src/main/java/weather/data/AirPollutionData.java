@@ -12,15 +12,22 @@ import java.io.IOException;
 public class AirPollutionData extends Data
 {
     private static final String URL_AIR_POLUTION = "http://powietrze.gios.gov.pl/pjp/current/getAQIDetailsList?param=AQI";
-    private static final int STATION_ID=544;
+    private static final int STATION_ID=544; //numer Id stacji w formacie Json
+    private static final int NUMBER_OF_DIGITS_AFTER_COMA=2;
+    private static final String UNIT=" µ/m3";
 
     private float PM10;
     private float PM2_5;
 
-
+    public AirPollutionData() //konstruktor bezargumentowy
+    {
+        super();
+    }
 
     public void  refreshData() throws IOException
     {
+            System.out.println("Start refresh air pollution data.");
+
             String airPoluteString = super.getStringData(URL_AIR_POLUTION);
 
             JsonArray entries = new JsonParser().parse(airPoluteString).getAsJsonArray();
@@ -29,45 +36,41 @@ public class AirPollutionData extends Data
             for(int i=0;i<entries.size();i++)
             {
                 JsonObject jsonObjectStation = (JsonObject) entries.get(i);
+
                 if(jsonObjectStation.get("stationId").getAsInt()==STATION_ID)
                 {
                     JsonObject jsonObjectValues = (JsonObject) jsonObjectStation.get("values");
                     PM10 = jsonObjectValues.get("PM10").getAsFloat();
                     PM2_5 = jsonObjectValues.get("PM2.5").getAsFloat();
-                    empty=false;
+                    super.empty(false);
                     return;
                 }
             }
 
-            System.out.println("Do not find id");
+            System.out.println("Not recognise id.");
             throw new IOException();
-
     }
 
     public String PM10()
     {
         if (super.empty())
         {
-            return "N/A";
+            return N_A_INSCRIPTION;
         }
-        return Float.toString(round(PM10, 2)) + " µ/m3";
+        return Float.toString(round(PM10, NUMBER_OF_DIGITS_AFTER_COMA)) +UNIT ;
     }
 
     public String PM2_5()
     {
         if (super.empty())
         {
-            return "N/A";
+            return N_A_INSCRIPTION;
         }
-        return Float.toString(round(PM2_5, 2)) + " µ/m3";
+        return Float.toString(round(PM2_5,NUMBER_OF_DIGITS_AFTER_COMA)) + UNIT;
     }
 
-    public AirPollutionData()
-    {
-        super();
-    }
 
-    private static float round(float value, int places)
+    private static float round(float value, int places) //
     {
         if (places < 0)
         {

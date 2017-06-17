@@ -14,7 +14,7 @@ public class WeatherDataOpenWeather extends WeatherData
     private int clouds;
 
     private static final String URL_OPEN_WEATHER = "http://api.openweathermap.org/data/2.5/weather?q=Warsaw&APPID=52ad7ea93477d9d80c6e2ac9749af2ef";
-    private static final double TRIPLE_POINT= 273.16;
+    private static final double TRIPLE_POINT= 273.15;
     private static final int HALF_CIRCLE = 180;
     @Override
     public void refreshData() throws IOException
@@ -54,7 +54,7 @@ public class WeatherDataOpenWeather extends WeatherData
 
             clouds= cloudsWeather.get("all").getAsInt();
 
-            empty=false;
+            super.empty(false);
     }
 
     public WeatherDataOpenWeather()

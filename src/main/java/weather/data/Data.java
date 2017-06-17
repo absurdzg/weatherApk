@@ -12,7 +12,8 @@ import java.net.URL;
  */
 public abstract class Data
 {
-    protected  boolean empty;
+    private boolean empty;
+    static final String N_A_INSCRIPTION="N/A";
 
     public abstract void refreshData()throws IOException;
 

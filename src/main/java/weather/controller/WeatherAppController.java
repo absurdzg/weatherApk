@@ -1,23 +1,25 @@
 package weather.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import org.kordamp.ikonli.javafx.FontIcon;
 import weather.data.*;
+import weather.network.DownloadData;
 import weather.network.Timer;
 
-import java.io.IOException;
-import java.time.LocalTime;
-import java.util.HashSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 
-/**
- * Created by Andrzej on 11.06.2017.
- */
 public class WeatherAppController
 {
+
+    private static final int COUNT_OF_SOURCE=3;
+
     AirPollutionData airPollutionData;
     WeatherData openWeatherSourceData;
     WeatherData meteoWawSourceData;
@@ -25,19 +27,7 @@ public class WeatherAppController
     Timer timer;
 
     @FXML
-    private FontIcon icon;
-
-    @FXML
-    private Button refreshButton;
-
-    @FXML
-    private Button changeSourceButton;
-
-    @FXML
-    private RadioButton openWeatherSource;
-
-    @FXML
-    private RadioButton meteoWawSource;
+    private RadioButton openWeatherSourceRadioButton;
 
     @FXML
     private FontIcon errorIcon;
@@ -80,56 +70,78 @@ public class WeatherAppController
 
     public void initialize()
     {
-        System.out.println("Init");
+        System.out.println("Initialize controller.");
         refreshButtonClicked();
     }
 
     public void refreshButtonClicked()
     {
-        timer.startTimer();
+        System.out.println("Refresh all data.");
+        timer.startTimer(); //restartuje timer
 
-        refreshAllData();
         updateTime();
-        bringUpDateShowing();
+        refreshAllData();
+        bringUpDataShowing();
     }
 
-    public void changeClicked()
+    public void changeClicked() //zmiana zrodła danych
     {
-        if (openWeatherSource.isSelected())
+        if (openWeatherSourceRadioButton.isSelected())
         {
             currentSource = openWeatherSourceData;
-            bringUpDateShowing();
+            bringUpDataShowing();
         }
         else
         {
             currentSource = meteoWawSourceData;
-            bringUpDateShowing();
+            bringUpDataShowing();
         }
     }
 
-    private void refreshAllData()
+    public void refreshAllData()
     {
-        HashSet<Data> toRefreshData = new HashSet<>();
-        toRefreshData.add(airPollutionData);
-        toRefreshData.add(openWeatherSourceData);
-        toRefreshData.add(meteoWawSourceData);
-        errorIcon.setVisible(false);
+        Data[] toRefreshData = new Data[COUNT_OF_SOURCE];
 
-        for (Data d : toRefreshData)
+        toRefreshData[0]=airPollutionData;
+        toRefreshData[1]=openWeatherSourceData;
+        toRefreshData[2]=meteoWawSourceData;
+
+        Runnable[] runners=new Runnable[COUNT_OF_SOURCE];
+
+        for(int i=0; i<COUNT_OF_SOURCE; i++) //wprowadzam wielowatkowosc aby szybciej sciagac dane
         {
-            try
-            {
-                d.empty(false);
-                d.refreshData();
-            } catch (IOException e)
-            {
-                errorIcon.setVisible(true);
-                d.empty(true);
-            }
+            runners[i]=new DownloadData(toRefreshData[i]);
         }
+
+        ExecutorService es= Executors.newCachedThreadPool();
+
+        for(Runnable runnable:runners)
+        {
+            es.execute(runnable);
+        }
+
+        es.shutdown();
+
+        try
+        {
+            while (!es.awaitTermination(1, TimeUnit.MINUTES)); //czekam az wszystkie dane zostana sciagniete
+            errorIcon.setVisible(false);
+        }
+        catch (InterruptedException e)
+        {
+            System.out.println("Too long time of download data.");
+            errorIcon.setVisible(true);
+        }
+
+        for(Data data:toRefreshData)
+        {
+            if(data.empty())
+                errorIcon.setVisible(true);
+        }
+
     }
 
-    private void bringUpDateShowing()
+    public void bringUpDataShowing() //aktualizuje wyswietlane dane
     {
         airPolutionLabelPM25.setText(airPollutionData.PM2_5());
         airPolutionLabelPM10.setText(airPollutionData.PM10());
@@ -139,48 +151,20 @@ public class WeatherAppController
         humidityLabel.setText(currentSource.humidity());
         cloudsLabel.setText(currentSource.cloud());
 
-        bringUpDateWindShowing();
-
+        windLabel.setText(currentSource.windData().windSpeed());
+        currentSource.windData().windDeg(iconWind);
     }
 
-    private void bringUpDateWindShowing()
-    {
-
-        WindData windData = currentSource.windData();
-
-        if (windData.empty())
-        {
-            windLabel.setText("N/A");
-            iconWind.setIconLiteral("wi-na"); //zmiana ikonki
-            iconWind.setRotate(0);
-        }
-        else
-        {
-            windLabel.setText(Float.toString(windData.getSpeed()));
-            iconWind.setIconLiteral("wi-wind-direction");
-            iconWind.setRotate(windData.getDeg());
-        }
-    }
 
     private void updateTime()
     {
-        LocalTime today =LocalTime.now();
+        Date day=new Date();
 
-        String time = today.getHour() + ":";
+        SimpleDateFormat dateFormat=new SimpleDateFormat("HH:mm:ss");
 
-        if (today.getMinute() < 10)
-        {
-            time += "0";
-        }
+        String time=dateFormat.format(day);
 
-        time += today.getMinute() + ":";
-
-        if (today.getSecond() < 10)
-        {
-            time += "0";
-        }
-        time += today.getSecond();
-
+        System.out.println("Time update:"+time);
         updatesTimeAndSource.setText(time);
     }
 }

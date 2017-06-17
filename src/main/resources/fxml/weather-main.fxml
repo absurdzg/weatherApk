@@ -182,13 +182,13 @@
                            <Insets bottom="20" right="150" left="150"/>
                        </padding>
                        <RadioButton text="OpenWeather" styleClass="info-value-style" selected="true"
-                                    fx:id="openWeatherSource" onAction="#changeClicked">
+                                    fx:id="openWeatherSourceRadioButton" onAction="#changeClicked">
                            <toggleGroup>
                                <ToggleGroup fx:id="source"/>
                            </toggleGroup>
                        </RadioButton>
                        <Region HBox.hgrow="ALWAYS"/>
-                       <RadioButton mnemonicParsing="false" text="MeteoWaw" fx:id="meteoWawSource"
+                       <RadioButton mnemonicParsing="false" text="MeteoWaw" fx:id="meteoWawSourceRadioButton"
                                     onAction="#changeClicked" styleClass="info-value-style" toggleGroup="$source"/>
                    </HBox>
                </VBox>

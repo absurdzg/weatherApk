@@ -7,6 +7,7 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 
+
 public class WeatherDataMeteo extends WeatherData
 {
     private static final String HUMIDITY_ID = "PARAM_0_RH";

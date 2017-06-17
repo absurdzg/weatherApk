@@ -1,12 +1,3 @@
-#main2 {
-    -fx-background-color: skyblue, derive(skyblue, 25%);
-    -fx-background-insets: -20, -10;
-    -fx-background-image: url("/image/wallpaper2.jpg");
-    -fx-background-position: left top, center;
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: cover, auto;
-}
-
 #iconWind {
     -fx-icon-size: 30px;
     -fx-icon-color: white;
@@ -51,22 +42,19 @@
     -fx-background-radius: 20 20 20 20;
 }
 
-.value-container {
-    -fx-pref-width: 70.0px;
-    -fx-pref-height: 70.0px;
-    -fx-background-color: whitesmoke;
-    -fx-border-radius: 20 20 20 20;
-    -fx-background-radius: 20 20 20 20;
-}
-
 .icon-style {
     -fx-icon-size: 30px;
     -fx-icon-color: black;
 }
 
-.icon-status-style {
+#icon-refresh {
     -fx-icon-size: 25px;
     -fx-icon-color: black;
+}
+
+#icon-error {
+    -fx-icon-size: 25px;
+    -fx-icon-color: red;
 }
 
 #statusContainer {

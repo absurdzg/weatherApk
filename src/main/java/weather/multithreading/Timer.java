@@ -1,4 +1,4 @@
-package weather.network;
+package weather.multithreading;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -8,8 +8,8 @@ import weather.controller.WeatherAppController;
 
 public class Timer  //klasa odpowiedzialna za sciaganie danych co jakis czas
 {
-    private WeatherAppController controller;
-    private static final int REFRESH_TIME = 2 * 60 * 1000; //time refresh in millis
+    private final WeatherAppController controller;
+    private static final int REFRESH_TIME = 60* 1000; //time refresh in millis
     private Timeline timeline;
 
 

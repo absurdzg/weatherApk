@@ -5,8 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import org.kordamp.ikonli.javafx.FontIcon;
 import weather.data.*;
-import weather.network.DownloadData;
-import weather.network.Timer;
+import weather.multithreading.DownloadData;
+import weather.multithreading.Timer;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,11 +20,11 @@ public class WeatherAppController
 
     private static final int COUNT_OF_SOURCE=3;
 
-    AirPollutionData airPollutionData;
-    WeatherData openWeatherSourceData;
-    WeatherData meteoWawSourceData;
-    WeatherData currentSource;
-    Timer timer;
+    private AirPollutionData airPollutionData;
+    private WeatherData openWeatherSourceData;
+    private WeatherData meteoWawSourceData;
+    private WeatherData currentSource;
+    private Timer timer;
 
     @FXML
     private RadioButton openWeatherSourceRadioButton;
@@ -98,7 +98,7 @@ public class WeatherAppController
         }
     }
 
-    public void refreshAllData()
+    private void refreshAllData()
     {
         Data[] toRefreshData = new Data[COUNT_OF_SOURCE];
 
@@ -141,7 +141,7 @@ public class WeatherAppController
 
     }
 
-    public void bringUpDataShowing() //aktualizuje wyswietlane dane
+    private void bringUpDataShowing() //aktualizuje wyswietlane dane
     {
         airPolutionLabelPM25.setText(airPollutionData.PM2_5());
         airPolutionLabelPM10.setText(airPollutionData.PM10());

@@ -5,9 +5,6 @@ import com.google.gson.JsonParser;
 
 import java.io.IOException;
 
-/**
- * Created by Andrzej on 11.06.2017.
- */
 public class WeatherDataOpenWeather extends WeatherData
 {
 
@@ -16,9 +13,17 @@ public class WeatherDataOpenWeather extends WeatherData
     private static final String URL_OPEN_WEATHER = "http://api.openweathermap.org/data/2.5/weather?q=Warsaw&APPID=52ad7ea93477d9d80c6e2ac9749af2ef";
     private static final double TRIPLE_POINT= 273.15;
     private static final int HALF_CIRCLE = 180;
+
+    public WeatherDataOpenWeather()
+    {
+        super();
+    } //konstruktor bezargumentowy
+
     @Override
     public void refreshData() throws IOException
     {
+            System.out.println("Start refresh openWeather.");
+
             String wheterStringData = super.getStringData(URL_OPEN_WEATHER);
 
             JsonObject weatherJsonData = new JsonParser().parse(wheterStringData).getAsJsonObject();
@@ -57,17 +62,13 @@ public class WeatherDataOpenWeather extends WeatherData
             super.empty(false);
     }
 
-    public WeatherDataOpenWeather()
-    {
-        super();
-    }
 
     @Override
     public String cloud()
     {
         if (super.empty())
         {
-            return "N/A";
+            return N_A_INSCRIPTION;
         }
         return Float.toString(clouds);
     }

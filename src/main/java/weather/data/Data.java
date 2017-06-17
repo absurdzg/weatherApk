@@ -7,17 +7,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-/**
- * Created by Andrzej on 11.06.2017.
- */
 public abstract class Data
 {
     private boolean empty;
+
     static final String N_A_INSCRIPTION="N/A";
 
     public abstract void refreshData()throws IOException;
 
-    public String getStringData(String serwer) throws IOException
+    String getStringData(String serwer) throws IOException
     {
         URL url = new URL(serwer);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -30,20 +28,20 @@ public abstract class Data
 
         BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
-        String output = "";
+        StringBuilder output = new StringBuilder();
         String line;
 
         while ((line = br.readLine()) != null)
         {
-            output += line;
+            output.append(line);
         }
 
         conn.disconnect();
 
-        return output;
+        return output.toString();
     }
 
-    public Data()
+    Data()
     {
         this.empty = true;
     }

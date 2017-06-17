@@ -1,8 +1,6 @@
 package weather.data;
 
-/**
- * Created by Andrzej on 11.06.2017.
- */
+
 public abstract class WeatherData extends Data
 {
 
@@ -11,7 +9,7 @@ public abstract class WeatherData extends Data
     protected float humidity;
     protected float pressure;
 
-    public WeatherData()
+    WeatherData()
     {
         super();
         windData = new WindData();
@@ -21,7 +19,7 @@ public abstract class WeatherData extends Data
     {
         if (super.empty())
         {
-            return "N/A";
+            return N_A_INSCRIPTION;
         }
         else
         {
@@ -34,7 +32,7 @@ public abstract class WeatherData extends Data
     {
         if (super.empty())
         {
-            return "N/A";
+            return N_A_INSCRIPTION;
         }
         else
         {
@@ -47,11 +45,12 @@ public abstract class WeatherData extends Data
         return windData;
     }
 
+
     public String humidity()
     {
         if (super.empty())
         {
-            return "N/A";
+            return N_A_INSCRIPTION;
         }
         else
         {

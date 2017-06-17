@@ -1,15 +1,12 @@
-package weather.network;
+package weather.multithreading;
 
 import weather.data.Data;
 
 import java.io.IOException;
 
-/**
- * Created by Andrzej on 16.06.2017.
- */
 public class DownloadData implements Runnable
 {
-    Data data; //dane które będą pobierane
+    private final Data data; //dane które będą pobierane
 
     public DownloadData(Data data)
     {

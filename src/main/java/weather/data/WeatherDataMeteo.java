@@ -27,9 +27,16 @@ public class WeatherDataMeteo extends WeatherData
 
     private static final String URL_METEO = "http://www.meteo.waw.pl/";
 
+    public WeatherDataMeteo()
+    {
+        super();
+    }
+
     @Override
     public void refreshData() throws IOException
     {
+        System.out.println("Start refresh meteoWaw.");
+
         Document doc = Jsoup.connect(URL_METEO).get();
 
         temperature=floatFromId(TEMPERATURE_ID,doc);
@@ -79,22 +86,20 @@ public class WeatherDataMeteo extends WeatherData
         }
     }
 
-    private float floatFromId(String id,Document doc)
+    private float floatFromId(String id,Document doc) //funkcja sciagajaca liczbe ze strony internetowej
+                                                        // zamieniajaca przecinki na kropki, aby moc parsowac na liczbe ze stringa
     {
         Element content = doc.getElementById(id);
         String properString=content.text().replace(',','.');
         return Float.parseFloat(properString);
     }
 
-    public WeatherDataMeteo()
-    {
-        super();
-    }
+
 
     @Override
     public String cloud()
     {
-        return "N/A";
+        return N_A_INSCRIPTION;
     }
 
 

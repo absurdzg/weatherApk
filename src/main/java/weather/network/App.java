@@ -1,6 +1,4 @@
-package weather.network;/**
- * Created by Andrzej on 11.06.2017.
- */
+package weather.network;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +14,10 @@ import java.io.IOException;
 public class App extends Application
 {
 
-    private static final String[] LOGOS = {"/image/icon16.png", "/image/icon24.png", "/image/icon32.png"};
-
+    private static final String[] LOGOS = {"/image/icon16.png", "/image/icon24.png", "/image/icon32.png"}; //zrodlo ikonek
     private static final String FXML_MAIN_FORM_TEMPLATE = "/fxml/weather-main.fxml";
+    private static final int WIDTH__WINDOW=700;
+    private static final int HEIGHT_WINDOW=420;
 
     public static void main(String[] args)
     {
@@ -38,7 +37,7 @@ public class App extends Application
     {
 
         Parent root = FXMLLoader.load(getClass().getResource(FXML_MAIN_FORM_TEMPLATE));
-        primaryStage.setScene(new Scene(root, 700, 420));
+        primaryStage.setScene(new Scene(root, WIDTH__WINDOW ,HEIGHT_WINDOW));
         primaryStage.setResizable(false);
         addLogo(primaryStage);
         primaryStage.show();
